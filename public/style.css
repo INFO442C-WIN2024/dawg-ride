@@ -16,7 +16,7 @@ body, html {
 .title-bar {
     background-color: #5B4A7B;
     padding: 15px; /* Reduced padding for smaller screens */
-    height: 12%;
+    height: 11%;
     text-align: center;
     font-weight: bold;
     font-size: 1.2em;
