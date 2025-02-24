@@ -1,10 +1,16 @@
 body, html {
     height: 100%;
     margin: 0;
-    font-family: sans-serif;
-    background-color: #4A354A;
+    font-family: 'Sanchez', sans-serif;
+    background-color: #5B4A7B;
     color: white;
     overflow: hidden; /* Prevent scrolling */
+}
+
+h1 {
+    font-family: 'Lilita One', sans-serif;
+    font-size: 22px;
+    padding-top: 60px;
 }
 
 .container {
@@ -14,7 +20,6 @@ body, html {
 }
 
 .title-bar {
-    background-color: #5B4A7B;
     padding: 15px; /* Reduced padding for smaller screens */
     height: 11%;
     text-align: center;
@@ -35,7 +40,6 @@ body, html {
 
 .content-area {
     flex-grow: 1;
-    padding: 20px;
     /* You can add a background image here if needed */
     overflow-y: auto; /* Allows content area to scroll if content overflows */
 }
@@ -131,7 +135,7 @@ body, html {
 .bottom-nav {
     display: flex;
     justify-content: space-around;
-    background-color: #321A37; /* Adjust if needed */
+    background-color: #1A0A3A; /* Adjust if needed */
     padding: 10px 0;
 }
 
@@ -160,4 +164,119 @@ body, html {
     color: #ddd;
 }
 
+.tabs-container {
+    display: flex;
+    justify-content: center;
+    gap: 35px;
+}
 
+.tab {
+    font-family: 'Sanchez', sans-serif;
+    font-size: 20px;
+    width: 175px;
+    height: 35px;
+    border-radius: 10px 10px 0px 0px;
+    border: none;
+    background-color: #E3DCF0;
+    color: #1A0A3A;
+}
+
+.active-tab {
+    background-color: #1A0A3A;
+    color: white;
+}
+
+.main-content {
+    background-color: rgb(238, 238, 238);
+    width: 100%;
+    height: 700px; /* change later */
+}
+
+.bottom-sheet {
+    position: absolute;
+    bottom: 80px;
+    width: 100%;
+    border-radius: 50px 50px 0px 0px;
+    background-color: white;
+    color: black; 
+    padding-top: 30px;
+}
+
+.closed-sheet, .open-sheet {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center; 
+    text-align: center;
+}
+
+.closed-sheet {
+    height: 100%;
+}
+
+.open-sheet {
+    height: 100%;
+    display: none;
+}
+
+.drag-sheet {
+    width: 50px;
+    height: 8px;
+    border-radius: 10px;
+    border: none;
+    background-color: #C9C0DA;
+}
+
+.ride-info-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-self: center;
+    padding: 30px;
+    margin-bottom: 50px;
+    width: 230px;
+    background-color: #C9C0DA;
+    border-radius: 20px;
+}
+
+.inputField {
+    height: 35px;
+    border-radius: 100px;
+    border: none;
+    padding: 5px;
+}
+
+.submitButton {
+    color: white;
+    background-color: black;
+    border-radius: 100px;
+    height: 30px;
+}
+
+.active-ride {
+    display: none;
+    justify-content: space-between;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 100px;
+    background-color: white;
+    color: black;
+    width: 350px;
+    border-radius: 50px;
+    padding: 6px 25px;
+}
+
+.eta {
+    font-size: 22px;
+}
+
+.exitRideInfo {
+    height: 30px;
+    width: 30px;
+    background-color: red;
+    color: white;
+    border-radius: 100%;
+    border: none;
+    margin: 10px 0px;
+}
