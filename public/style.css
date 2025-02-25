@@ -161,3 +161,60 @@ body, html {
 }
 
 
+.accordion {
+    background-color: #321A37; 
+    color: white; 
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    text-align: left;
+    border: 1px solid #5B4A7B; 
+    outline: none;
+    transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
+    font-size: 1rem;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 8px; 
+}
+
+.accordion:hover, .accordion:focus-visible {
+    background-color: #5B4A7B;
+    color: #E0D4F5; 
+}
+
+.active {
+    background-color: #5B4A7B; 
+    color: white;
+}
+
+.accordion::after {
+    content: '\f078'; 
+    font-family: "Font Awesome 5 Free"; 
+    font-weight: 900;
+    font-size: 14px;
+    color: #E0D4F5; 
+    transition: transform 0.3s ease;
+}
+
+.active::after {
+    content: '\f077';
+    transform: rotate(180deg);
+}
+
+.panel {
+    padding: 15px;
+    background-color: #1A0A3A; 
+    display: none;
+    border-radius: 0 0 8px 8px; 
+    color: white;
+}
+
+
+.panel p {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
