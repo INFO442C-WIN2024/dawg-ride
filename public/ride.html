@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>DawgRide Template</title>
+    <title>DawgRide - Ride</title>
     <link rel="stylesheet" type="text/css" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Sanchez:ital@0;1&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
 </head>
 <body>
     <div class="container">
@@ -22,13 +23,7 @@
             </div>
 
             <div class="main-content">
-
-                <div>
-                    <!-- insert map -->
-                </div>
-
                 <div class="bottom-sheet">
-
                     <div class="closed-sheet">
                         <button onclick="openRideForm()" class="drag-sheet"><span></span></button>
                         <h2>Enter Ride Information</h2>
@@ -38,7 +33,7 @@
                         <button onclick="closeRideForm()" class="drag-sheet"><span></span></button>
                         <h2>Where would you like to go?</h2>
                         <form class="ride-info-form">
-                            <select id="stopOptions" name="stopOptions" class="inputField">
+                            <select id="stopOptions" name="stopOptions" class="inputField" onchange="selectStop(this.value)">
                                 <option value="" disabled selected hidden>Select a Stop</option>
                                 <option value="uwTower">Stop #7 UW Tower</option>
                                 <option value="alderHall">Stop #23 Alder Hall</option>
@@ -49,10 +44,9 @@
                                 <option value="meany">Stop #14 Meany Hall</option>
                                 <option value="flagpole">Stop #22 Flagpole</option>
                             </select>
-                            <button onclick="openActiveRide()" class="submitButton">Submit</button>
+                            <button onclick="openActiveRide(event)" class="submitButton">Submit</button>
                         </form>
                     </div>
-
                 </div>
 
                 <div class="active-ride">
@@ -62,7 +56,6 @@
                     </div>
                     <button onclick="closeActiveRide()" class="exitRideInfo">X</button>
                 </div>
-
             </div>
         </div>
         <div class="bottom-nav">
@@ -80,12 +73,52 @@
                     <i class="fa fa-comment-dots"></i>
                 </a>
             </div>
-            <!-- <div class="nav-item">
-                <i class="fa fa-user"></i>
-            </div> -->
         </div>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
     <script src="../src/index.js"></script>
+    <script src="map.js"></script>
+    
+    <!-- change active tab makes this code not add-able to index.js - thoughts on making a separate helper.js file just for this? -->
+    <script>
+        if (typeof openRideForm !== 'function') {
+            function openRideForm() {
+                document.querySelector(".open-sheet").style.display = "block";
+                document.querySelector(".closed-sheet").style.display = "none";
+            }
+        }
+        
+        if (typeof closeRideForm !== 'function') {
+            function closeRideForm() {
+                document.querySelector(".open-sheet").style.display = "none";
+                document.querySelector(".closed-sheet").style.display = "block";
+            }
+        }
+        
+        if (typeof openActiveRide !== 'function') {
+            function openActiveRide(event) {
+                if (event) event.preventDefault();
+                document.querySelector(".bottom-sheet").style.display = "none";
+                document.querySelector(".active-ride").style.display = "flex";
+            }
+        }
+        
+        if (typeof closeActiveRide !== 'function') {
+            function closeActiveRide() {
+                document.querySelector(".bottom-sheet").style.display = "block";
+                document.querySelector(".active-ride").style.display = "none";
+            }
+        }
+        
+        if (typeof changeActiveTab !== 'function') {
+            function changeActiveTab(event) {
+                document.querySelectorAll(".tab").forEach(tab => {
+                    tab.classList.remove("active-tab");
+                });
+                event.target.classList.add("active-tab");
+            }
+        }
+    </script>
 </body>
 </html>
