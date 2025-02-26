@@ -41,11 +41,12 @@ function initMap() {
         const mapContainerDiv = document.createElement('div');
         mapContainerDiv.className = 'map-container';
         mapContainerDiv.style.width = '100%';
-        mapContainerDiv.style.height = '70%';
+        mapContainerDiv.style.height = '100%';
         const mapDiv = document.createElement('div');
         mapDiv.id = 'map';
         mapDiv.style.width = '100%';
         mapDiv.style.height = '100%';
+        mapDiv.style.zIndex = '1';
         mapContainerDiv.appendChild(mapDiv);
         mainContent.insertBefore(mapContainerDiv, mainContent.firstChild);
         mapContainer = mapDiv;

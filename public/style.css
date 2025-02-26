@@ -257,6 +257,7 @@ h1 {
     background-color: white;
     color: black; 
     padding-top: 30px;
+    z-index: 10;
 }
 
 .closed-sheet, .open-sheet {
