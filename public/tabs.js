@@ -56,7 +56,7 @@ function changeActiveTab(event) {
                 </div>
             </div>
         `;
-    } else if (event.target.innerText === "SafeCampus") {
+    } else if (event.target.innerText === "SafeTrip") {
         mainContent.innerHTML = `
             <div class="bottom-sheet">
                 <div class="closed-sheet">
