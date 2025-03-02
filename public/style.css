@@ -42,6 +42,7 @@ h1 {
     flex-grow: 1;
     /* You can add a background image here if needed */
     overflow-y: auto; /* Allows content area to scroll if content overflows */
+
 }
 
 .bottom-nav {
@@ -225,6 +226,7 @@ h1 {
     display: flex;
     justify-content: center;
     gap: 35px;
+    padding-top: 5%;
 }
 
 .tab {
@@ -277,6 +279,14 @@ h1 {
     display: none;
 }
 
+.joinQueueClosed {
+    display: none;
+}
+
+.joinQueueOpen {
+    display: block;
+}
+
 .drag-sheet {
     width: 50px;
     height: 8px;
@@ -291,7 +301,7 @@ h1 {
     gap: 20px;
     justify-self: center;
     padding: 30px;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
     width: 230px;
     background-color: #C9C0DA;
     border-radius: 20px;
@@ -399,4 +409,10 @@ h1 {
 
 .tab-content {
     padding: 15px;
+}
+
+/* for joining safetrip queue */
+.errorMessage {
+    font-family: sans-serif;
+    margin-bottom: 30px;
 }

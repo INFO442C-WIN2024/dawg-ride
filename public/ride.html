@@ -24,38 +24,41 @@
             </div>
 
             <div class="main-content">
-                <div class="bottom-sheet">
-                    <div class="closed-sheet">
-                        <button onclick="openRideForm()" class="drag-sheet"><span></span></button>
-                        <h2>Select your pickup location</h2>
+
+                <div class="bottom-container">
+                    <div class="bottom-sheet">
+                        <div class="closed-sheet">
+                            <button onclick="openRideForm()" class="drag-sheet"><span></span></button>
+                            <h2>Select your pickup location</h2>
+                        </div>
+
+                        <div class="open-sheet">
+                            <button onclick="closeRideForm()" class="drag-sheet"><span></span></button>
+                            <h2>Select your pickup location</h2>
+                            <form class="ride-info-form">
+                                <select id="stopOptions" name="stopOptions" class="inputField" onchange="selectStop(this.value)">
+                                    <option value="" disabled selected hidden>Select a Stop</option>
+                                    <option value="uwTower">Stop #7 UW Tower</option>
+                                    <option value="alderHall">Stop #23 Alder Hall</option>
+                                    <option value="IMA">Stop #27 IMA</option>
+                                    <option value="comms">Stop #26 Comms. Bld.</option>
+                                    <option value="HUB">Stop #25 HUB</option>
+                                    <option value="okanogan">Stop #28 Okanogan Lane</option>
+                                    <option value="meany">Stop #14 Meany Hall</option>
+                                    <option value="flagpole">Stop #22 Flagpole</option>
+                                </select>
+                                <button onclick="openActiveRide(event)" class="submitButton">Submit</button>
+                            </form>
+                        </div>
                     </div>
 
-                    <div class="open-sheet">
-                        <button onclick="closeRideForm()" class="drag-sheet"><span></span></button>
-                        <h2>Select your pickup location</h2>
-                        <form class="ride-info-form">
-                            <select id="stopOptions" name="stopOptions" class="inputField" onchange="selectStop(this.value)">
-                                <option value="" disabled selected hidden>Select a Stop</option>
-                                <option value="uwTower">Stop #7 UW Tower</option>
-                                <option value="alderHall">Stop #23 Alder Hall</option>
-                                <option value="IMA">Stop #27 IMA</option>
-                                <option value="comms">Stop #26 Comms. Bld.</option>
-                                <option value="HUB">Stop #25 HUB</option>
-                                <option value="okanogan">Stop #28 Okanogan Lane</option>
-                                <option value="meany">Stop #14 Meany Hall</option>
-                                <option value="flagpole">Stop #22 Flagpole</option>
-                            </select>
-                            <button onclick="openActiveRide(event)" class="submitButton">Submit</button>
-                        </form>
+                    <div class="active-ride">
+                        <div>
+                            <p class="eta"><strong>5 min</strong></p>
+                            <p>9:30 PM ETA</p>  
+                        </div>
+                        <button onclick="closeActiveRide()" class="exitRideInfo">X</button>
                     </div>
-                </div>
-
-                <div class="active-ride">
-                    <div>
-                        <p class="eta"><strong>5 min</strong></p>
-                        <p>9:30 PM ETA</p>  
-                    </div>
-                    <button onclick="closeActiveRide()" class="exitRideInfo">X</button>
                 </div>
             </div>
         </div>
@@ -78,11 +81,11 @@
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
-    <script src="../src/index.js"></script>
     <script src="map.js"></script>
+    <script src="tabs.js"></script>
     
     <!-- change active tab makes this code not add-able to index.js - thoughts on making a separate helper.js file just for this? -->
-    <script>
+    <!-- <script>
         if (typeof openRideForm !== 'function') {
             function openRideForm() {
                 document.querySelector(".open-sheet").style.display = "block";
@@ -120,6 +123,6 @@
                 event.target.classList.add("active-tab");
             }
         }
-    </script>
+    </script> -->
 </body>
 </html>
