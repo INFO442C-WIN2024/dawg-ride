@@ -7,7 +7,9 @@ let mapInitialized = false;
 
 document.addEventListener('DOMContentLoaded', function() {
     setupTabListeners();
-    initMap();
+    if (window.location.pathname.includes('ride.html')) {
+        initMap();
+    }
 });
 
 function setupTabListeners() {
