@@ -63,3 +63,21 @@ header {
 .get-started:hover {
     background-color: #333;
 }
+
+/* Container for progress bar */
+.progress-container {
+    width: 50%;
+    height: 20px;
+    background-color: #f3f3f3;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+/* Progress bar */
+.progress-bar {
+    height: 100%;
+    width: 0%; 
+    background: linear-gradient(to right, #5a26b4, #c486ee); 
+    border-radius: 10px;
+    transition: width 0.1s ease-in-out;
+}

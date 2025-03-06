@@ -18,7 +18,32 @@
             <i class="fa-solid fa-bus"></i>
             <h1>DawgRide</h1>
         </div>
-        <button class="get-started" onclick="window.location.href='ride.html'">Get Started</button>
+        <button class="get-started" onclick="startProgress()">Get Started</button>
+
+        <div class="progress-container" id="progress-container" style="display: none;">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
     </div>
+
+    <script>
+        function startProgress() {
+            document.querySelector('.get-started').style.display = 'none';
+
+            document.getElementById('progress-container').style.display = 'block';
+
+            let progressBar = document.getElementById('progress-bar');
+            let width = 0;
+
+            let interval = setInterval(() => {
+                if (width >= 100) {
+                    clearInterval(interval); 
+                    window.location.href = 'ride.html'; 
+                } else {
+                    width++;
+                    progressBar.style.width = width + '%'; 
+                }
+            }, 25); 
+        }
+    </script>
 </body>
 </html>
