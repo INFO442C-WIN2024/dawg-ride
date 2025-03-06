@@ -521,3 +521,8 @@ h1 {
     max-height: 100%; /* Adjust to fit within the panel */
     display: inline-block; /* Ensures image stays in line */
 }
+
+.safety-reportkey h3 {
+    font-family: 'Lilita One', sans-serif;
+    font-size: 20px;
+}

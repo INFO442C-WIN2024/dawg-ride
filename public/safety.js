@@ -92,6 +92,47 @@ function initSafetyMap() {
   
   // Center map on UW Campus
   map.setView([47.655, -122.308], 15);
+
+  createLegend();
+}
+
+function createLegend() {
+    const legend = document.createElement("div");
+    legend.innerHTML = `
+        <div class="safety-reportkey">
+        <h3 style="margin: 0; color: #000000; padding-bottom: 5px; font-size: 16px;">Safety Report Key</h3>
+        </div>
+        <div class="legend-item">
+            <i class="fa fa-lightbulb" style="color: #FFC107; margin-right: 8px;"></i> 
+            <span style="color: #000000; font-family: 'Sanchez', sans-serif;">Lighting Issue</span>
+        </div>
+        <div class="legend-item">
+            <i class="fa fa-eye" style="color: #2196F3; margin-right: 8px;"></i> 
+            <span style="color: #000000; font-family: 'Sanchez', sans-serif;">Suspicious Activity</span>
+        </div>
+        <div class="legend-item">
+            <i class="fa fa-exclamation-circle" style="color: #F44336; margin-right: 8px;"></i> 
+            <span style="color: #000000; font-family: 'Sanchez', sans-serif;">Harassment Concern</span>
+        </div>
+    `;
+    legend.style.position = "absolute";
+    legend.style.top = "20px";
+    legend.style.left = "20px";
+    legend.style.background = "rgba(255, 255, 255, 0.9)";
+    legend.style.padding = "15px 15px";
+    legend.style.borderRadius = "8px";
+    legend.style.boxShadow = "0px 2px 5px rgba(0, 0, 0, 0.2)";
+    legend.style.fontSize = "14px";
+    legend.style.zIndex = "1000"; 
+    legend.style.maxWidth = "170px";
+
+    const legendItems = legend.querySelectorAll(".legend-item");
+    legendItems.forEach(item => {
+        item.style.display = "inline-flex"; // Display items inline-flex
+        item.style.alignItems = "center";  // Vertically center the icons and text
+    });
+
+    document.getElementById("map").appendChild(legend);
 }
 
 function openReportForm() {
