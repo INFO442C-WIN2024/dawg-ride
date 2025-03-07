@@ -157,6 +157,156 @@ function initMap() {
     }, 100);
 }
 
+//-------  safetrip map functions -------------
+
+// copied from initMap() to change the shuttle stops to UW buildings
+// for SafeTrip. can change if needed
+function initSafeTripMap() {
+    console.log("Initializing map...");
+    let mapContainer = document.getElementById('map');
+    if (!mapContainer) {
+        console.log("No map container found, creating one...");
+        const mainContent = document.querySelector('.main-content');
+        if (!mainContent) {
+            console.error("Main content area not found!");
+            return;
+        }
+        // creating the map container
+        const mapContainerDiv = document.createElement('div');
+        mapContainerDiv.className = 'map-container';
+        mapContainerDiv.style.width = '100%';
+        mapContainerDiv.style.height = '100%';
+        const mapDiv = document.createElement('div');
+        mapDiv.id = 'map';
+        mapDiv.style.width = '100%';
+        mapDiv.style.height = '100%';
+        mapDiv.style.zIndex = '1';
+        mapContainerDiv.appendChild(mapDiv);
+        mainContent.insertBefore(mapContainerDiv, mainContent.firstChild);
+        mapContainer = mapDiv;
+    }
+
+    if (map) {
+        console.log("exists");
+        map.invalidateSize(true);
+        return;
+    }
+    
+    // UW Campus center coordinates
+    const UW_CENTER = [47.655, -122.308];
+    const INITIAL_ZOOM = 16;
+    console.log("Creating new map...");
+    map = L.map('map', {
+        zoomControl: false,
+        attributionControl: false
+    }).setView(UW_CENTER, INITIAL_ZOOM);
+
+    // adding zoom controls
+    L.control.zoom({
+        position: 'topright'
+    }).addTo(map);
+
+    // Add attribution control to bottom right
+    L.control.attribution({
+        position: 'bottomright'
+    }).addTo(map).addAttribution('© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>');
+
+    // Add tile layer (OpenStreetMap)
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19
+    }).addTo(map);
+
+    // UW Building Coordinates
+    stops = {
+        ode: {
+            name: "Odegaard",
+            position: [47.6564, -122.3103]
+        },
+        paccar: {
+            name: "Paccar",
+            position: [47.6591, -122.3085]
+        },
+        maryGates: {
+            name: "Mary Gates",
+            position: [47.65485, -122.3078]
+        },
+        bagley: {
+            name: "Bagley",
+            position: [47.6535, -122.3089]
+        },
+        HUB: {
+            name: "HUB",
+            position: [47.6554, -122.3046]
+        },
+        suzzalo: {
+            name: "Suzzalo",
+            position: [47.6557, -122.3085]
+        },
+        denny: {
+            name: "Denny Hall",
+            position: [47.6584, -122.3087]
+        },
+        burke: {
+            name: "Burke Museum",
+            position: [47.6603, -122.3116]
+        }
+    };
+
+    addBuildingsToMap();
+    mapInitialized = true;
+    setTimeout(function() {
+        map.invalidateSize(true);
+    }, 100);
+}
+
+function addBuildingsToMap() {
+    if (!map) return;
+    
+    // Clear existing stop markers
+    for (const key in stopMarkers) {
+        if (map.hasLayer(stopMarkers[key])) {
+            map.removeLayer(stopMarkers[key]);
+        }
+    }
+    stopMarkers = {};
+    
+    // Add stops to map
+    for (const key in stops) {
+        const stop = stops[key];
+        const marker = L.marker(stop.position, {icon: createBuildingIcon()})
+            .bindPopup(
+                `<div class="stop-popup">${stop.name}</div>`
+            );
+        stopMarkers[key] = marker;
+        marker.addTo(map);
+    }
+}
+
+function createBuildingIcon() {
+    return L.divIcon({
+        className: 'building-icon',
+        html: `<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="black" class="bi bi-building" viewBox="0 0 16 16">
+                  <path d="M4 2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zM4 5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zM7.5 5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm2.5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zM4.5 8a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm2.5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5z"/>
+                  <path d="M2 1a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1zm11 0H3v14h3v-2.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5V15h3z"/>
+              </svg>`,
+        iconSize: [30, 30],
+        iconAnchor: [15, 15]
+    });
+}
+
+function selectBuilding(stopId) {
+    if (!map || !stops || !stopId || !stops[stopId]) {
+        return;
+    }
+    // Center map on selected stop
+    map.setView(stops[stopId].position, 17);
+    
+    // Open the popup for this stop
+    if (stopMarkers && stopMarkers[stopId]) {
+        stopMarkers[stopId].openPopup();
+    }
+}
+
 function createBusIcon() {
     return L.divIcon({
         className: 'custom-bus-icon',
@@ -165,6 +315,8 @@ function createBusIcon() {
         iconAnchor: [15, 15]
     });
 }
+//------- ^ safetrip map ^ -------------
+
 
 function createStopIcon() {
     return L.divIcon({

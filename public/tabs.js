@@ -34,9 +34,9 @@ function changeActiveTab(event) {
         map.remove();
         map = null;
     }
-    initMap();
 
     if (event.target.innerText === "NightRide") {
+        initMap();
         bottomContent.innerHTML = `
             <div class="bottom-sheet">
                 <div class="closed-sheet">
@@ -73,6 +73,7 @@ function changeActiveTab(event) {
             </div>
         `;
     } else if (event.target.innerText === "SafeTrip") {
+        initSafeTripMap();
         bottomContent.innerHTML = `
             <div class="bottom-sheet">
                 <div class="closed-sheet">
@@ -117,7 +118,10 @@ function changeActiveTab(event) {
         errorMessage.innerHTML = "Please enter a valid phone number.";
         return; 
     }
+    joinQueueForm();
+  }
 
+  function joinQueueForm() {
     bottomContent.innerHTML = `
         <div class="bottom-sheet">
             <div class="closed-sheet joinQueueClosed">
@@ -128,8 +132,18 @@ function changeActiveTab(event) {
                 <button onclick="closeRideForm()" class="drag-sheet"><span></span></button>
                 <h2>Join Queue</h2>
                 <form class="ride-info-form">
-                    <input type="text" id="studentLocation" name="studentLocation" placeholder="Enter Pick-up Location" class="inputField">
-                    <button class="submitButton" onclick="joinQueue(event)">Search</button>
+                    <select id="buildings" name="buildings" class="inputField" onchange="selectBuilding(this.value)">
+                        <option value="" disabled selected hidden>Select Nearest Building</option>
+                        <option value="ode">Odegaard</option>
+                        <option value="paccar">Paccar</option>
+                        <option value="maryGates">Mary Gates</option>
+                        <option value="bagley">Bagley</option>
+                        <option value="HUB">HUB</option>
+                        <option value="suzzalo">Suzzalo</option>
+                        <option value="denny">Denny Hall</option>
+                        <option value="burke">Burke Museum</option>
+                    </select>
+                    <button onclick="joinQueue(event)" class="submitButton">Join Queue</button>
                 </form>
             </div>
         </div>
@@ -138,7 +152,21 @@ function changeActiveTab(event) {
 
   function joinQueue(event) {
     event.preventDefault();
-
-    // TODO
-    // pinpoint location on map and display queue number and waittime??
+    bottomContent.innerHTML = `
+        <div class="bottom-sheet">
+            <div class="closed-sheet joinQueueClosed">
+                <button onclick="openRideForm()" class="drag-sheet"><span></span></button>
+                <h2>Queue Joined!</h2>
+            </div>
+            <div class="open-sheet joinQueueOpen">
+                <button onclick="closeRideForm()" class="drag-sheet"><span></span></button>
+                <h2>Queue Joined!</h2>
+                <h3>3rd in Line</h3>
+                <p>Please wait outside or near an entryway with your huskyID ready. The UWPD security guard car will arrive shortly</p>
+                <p>Need help? Call 206-685-9255</p>
+                <button onclick="joinQueueForm()" class="submitButton backbtn">Go Back</button>
+            </div>
+        </div>
+    `
   }
+
