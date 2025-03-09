@@ -382,33 +382,76 @@ function selectStop(stopId) {
         return;
     }
     
-    // Center map on selected stop
-    map.setView(stops[stopId].position, 17);
+    // Find closest shuttle
+    const selectedStop = stops[stopId];
+    const closestShuttle = findClosestShuttle(selectedStop.position);
     
-    // Open the popup for this stop
+    // Remove highlights from rest of shuttles
+    shuttleMarkers.forEach(marker => {
+        const icon = marker.getIcon();
+        icon.options.className = 'custom-bus-icon';
+        marker.setIcon(icon);
+        
+        // Close any open popups
+        if (marker.isPopupOpen()) {
+            marker.closePopup();
+        }
+    });
+    
+    if (closestShuttle) {
+        // Get marker for closest shuttle
+        const shuttleMarker = shuttleMarkers[shuttles.indexOf(closestShuttle)];
+        
+        // Highlight closest shuttle
+        if (shuttleMarker) {
+            const highlightedIcon = L.divIcon({
+                className: 'custom-bus-icon highlighted',
+                html: '<i class="fa fa-bus"></i>',
+                iconSize: [36, 36],
+                iconAnchor: [18, 18]
+            });
+            shuttleMarker.setIcon(highlightedIcon);
+            
+            // Open popup
+            shuttleMarker.openPopup();
+            
+            // Update ETA display
+            const etaElement = document.querySelector(".active-ride .eta strong");
+            if (etaElement) {
+                etaElement.textContent = `${closestShuttle.eta} min`;
+            }
+            
+            const etaTimeElement = document.querySelector(".active-ride p:nth-child(2)");
+            if (etaTimeElement) {
+                const etaTime = new Date();
+                etaTime.setMinutes(etaTime.getMinutes() + closestShuttle.eta);
+                etaTimeElement.textContent = 
+                    `${etaTime.getHours()}:${(etaTime.getMinutes() < 10 ? "0" : "") + etaTime.getMinutes()} PM ETA`;
+            }
+            
+            // Calculate bounds to include both stop and shuttle
+            const bounds = L.latLngBounds([
+                selectedStop.position,
+                closestShuttle.position
+            ]);
+            
+            const paddedBounds = bounds.pad(0.3);
+            
+            // Fit map
+            map.fitBounds(paddedBounds);
+        }
+    } else {
+        // Center stop if no closest
+        map.setView(selectedStop.position, 17);
+    }
+    
+    // Open popup for the selected stop
     if (stopMarkers && stopMarkers[stopId]) {
         stopMarkers[stopId].openPopup();
     }
-    
-    // Calculate and display ETA
-    const closestShuttle = findClosestShuttle(stops[stopId].position);
-    if (closestShuttle) {
-        const etaElement = document.querySelector(".active-ride .eta strong");
-        if (etaElement) {
-            etaElement.textContent = `${closestShuttle.eta} min`;
-        }
-        
-        const etaTimeElement = document.querySelector(".active-ride p:nth-child(2)");
-        if (etaTimeElement) {
-            const etaTime = new Date();
-            etaTime.setMinutes(etaTime.getMinutes() + closestShuttle.eta);
-            etaTimeElement.textContent = 
-                `${etaTime.getHours()}:${(etaTime.getMinutes() < 10 ? "0" : "") + etaTime.getMinutes()} PM ETA`;
-        }
-    }
 }
 
-// find closest shuttle - this doesnt work rn tho
+// find closest shuttle 
 function findClosestShuttle(position) {
     if (!shuttles || !shuttles.length) return null;
     

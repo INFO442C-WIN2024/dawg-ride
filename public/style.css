@@ -71,6 +71,7 @@ h1 {
     bottom: 12%;
     box-shadow: 0px 2px 5px rgba(0,0,0,0.3);
     cursor: pointer;
+    z-index: 1000;
 }
 
 .icon-container {
@@ -618,4 +619,16 @@ h1 {
 .modal-content {
     max-height: 90vh;
     overflow-y: auto;
+}
+
+
+.custom-bus-icon.highlighted {
+    background-color: #5B4A7B; 
+    width: 50px !important;
+    height: 50px !important;
+    border: 3px solid #FFDE59; 
+    box-shadow: 0 0 12px rgba(255,222,89,0.7); 
+    transform: scale(1.1);
+    transition: all 0.3s ease; 
+    z-index: 1000 !important; 
 }
