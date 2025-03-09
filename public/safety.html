@@ -27,7 +27,7 @@
                 <!-- Map will be inserted here by map.js -->
             </div>
             
-            <div class="fab" onclick="openReportForm()">
+            <div class="fab" title="Report an issue on the map">
                 <div class="icon-container">
                     <div class="circle">
                         <div class="triangle">
@@ -42,8 +42,12 @@
                 <div class="modal-content">
                     <span class="close-modal" onclick="closeReportForm()">&times;</span>
                     <h2>Report Unsafe Area</h2>
+                    <div class="location-info">
+                        <p>Selected Location:</p>
+                        <p id="locationCoordinates" class="coordinates">--</p>
+                    </div>
                     <form id="reportForm">
-                        <select id="issueType" name="issueType" class="inputField">
+                        <select id="issueType" name="issueType" class="inputField" required>
                             <option value="" disabled selected hidden>Select Issue Type</option>
                             <option value="lighting">Poor Lighting</option>
                             <option value="suspicious">Suspicious Activity</option>
@@ -51,6 +55,10 @@
                             <option value="other">Other</option>
                         </select>
                         <textarea id="description" name="description" placeholder="Describe the issue (optional)" class="inputField"></textarea>
+                        <div class="student-validation">
+                            <h3>Verify Your Identity</h3>
+                            <input type="text" id="studentID" name="studentID" placeholder="UW Student ID Number" class="inputField" required>
+                        </div>
                         <button type="submit" class="submitButton">Submit Report</button>
                     </form>
                 </div>

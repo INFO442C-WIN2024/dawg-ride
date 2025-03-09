@@ -536,3 +536,86 @@ h1 {
     font-family: 'Lilita One', sans-serif;
     font-size: 20px;
 }
+
+/* Cursor for map in location selection mode */
+.selecting-location {
+    cursor: crosshair !important;
+}
+
+/* Location info section styling */
+.location-info {
+    background-color: #f5f5f5;
+    padding: 12px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    text-align: center;
+    border-left: 4px solid #5B4A7B;
+}
+
+.location-info p {
+    margin: 5px 0;
+    color: #333;
+}
+
+.coordinates {
+    font-family: monospace;
+    font-weight: bold;
+    font-size: 14px;
+    color: #5B4A7B !important;
+}
+
+/* Map notification styling */
+.map-notification {
+    font-family: 'Sanchez', sans-serif;
+    font-size: 14px;
+    transition: opacity 0.3s ease-in-out;
+    animation: fadeInOut 3s ease-in-out;
+}
+
+@keyframes fadeInOut {
+    0% { opacity: 0; transform: translateX(-50%) translateY(-10px); }
+    10% { opacity: 1; transform: translateX(-50%) translateY(0); }
+    90% { opacity: 1; transform: translateX(-50%) translateY(0); }
+    100% { opacity: 0; transform: translateX(-50%) translateY(-10px); }
+}
+
+/* Temporary location marker pulse effect */
+.temp-location-icon {
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.2); opacity: 0.8; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* Report button active state */
+.fab.active-reporting .circle {
+    background-color: #FFC107;
+    transform: scale(1.1);
+    transition: all 0.3s ease;
+}
+
+.fab.active-reporting .triangle {
+    background-color: #F44336;
+}
+
+/* Student ID validation section in safety reports */
+.student-validation {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+}
+
+.student-validation h3 {
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+/* Make the modal larger for better usability */
+.modal-content {
+    max-height: 90vh;
+    overflow-y: auto;
+}
