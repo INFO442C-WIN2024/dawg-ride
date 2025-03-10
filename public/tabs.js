@@ -84,7 +84,7 @@ function changeActiveTab(event) {
                     <button onclick="closeRideForm()" class="drag-sheet"><span></span></button>
                     <h2>Submit your valid student ID and ID number to join the queue:</h2>
                     <form class="ride-info-form">
-                        <input type="number" id="studentID" name="studentID" placeholder="Student ID" class="inputField">
+                        <input type="number" id="studentID Number" name="studentID" placeholder="Student ID" class="inputField">
                         <input type="tel" id="phone" name="phone" placeholder="Phone Number" class="inputField">
                         <button class="submitButton" onclick="verifyStudent(event)">Submit</button>
                     </form>
