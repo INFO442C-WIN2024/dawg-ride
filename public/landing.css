@@ -81,3 +81,7 @@ header {
     border-radius: 10px;
     transition: width 0.1s ease-in-out;
 }
+
+.fa-bus {
+    font-size: 80px; 
+  }
