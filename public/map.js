@@ -148,6 +148,23 @@ function initMap() {
         }
     ];
 
+    function updateImageOverlayBasedOnTab() {
+        const activeTab = document.querySelector('.tab.active-tab');
+    
+        const imageUrl = 'img/zones.png';  
+        const imageBounds = [[47.672, -122.3305], [47.6452, -122.2855]];
+    
+        if (activeTab && activeTab.textContent === 'NightRide') {
+            console.log("NightRide is active, setting image overlay...");
+    
+            L.imageOverlay(imageUrl, imageBounds, {
+                opacity: 1 
+            }).addTo(map);
+        } 
+    }
+    updateImageOverlayBasedOnTab();
+    
+
     addStopsToMap();
     addShuttlesToMap();
     moveShuttles();
